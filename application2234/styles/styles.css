@@ -1,13 +1,19 @@
 body, html {
+	font-size: 11px;
 }
-
+a, a:link {
+	text-decoration: none;
+	border-bottom: 1px dotted blue;
+	color: blue;
+	cursor: pointer;
+}
 .hidden {
 	display: none; 
 	}
 
 label {
 	display:inline-block;
-	width:115px;
+	width:60px;
 	text-align:right;
 	padding-right:2px;
 }
@@ -17,3 +23,7 @@ input[type="submit"] {
 }
 
 div.user-login { width: 350px; margin: 20px 0; }
+
+.dialog {
+	width: 400px;
+}

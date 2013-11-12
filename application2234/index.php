@@ -25,31 +25,43 @@ $app = new application2234();
 	</div>
 </div>
 <form class="hidden dialog user-register">
-	<input type="hidden" name="action" value="add-user" />
+	<input type="hidden" name="action" value="user-register" />
 	<p>
-		<label for="username">Username:</label>
+		<label for="username">Name:</label>
 		<input type="text" name="username" required />
+	</p>
+	<p>
+		<label for="email">Email:</label>
+		<input type="text" name="email" required />
 	</p>
 	<p>
 		<label for="password">Password:</label>
 		<input type="password" name="password" required />
 	</p>
 	<p>
-		<input type="submit" name="register" value="Register">
+		<a class="login">Sign in instead</a><br />
+	</p>
+	<p>
+		<input type="submit" name="register" value="Reg">
+		<input type="reset" name="cancel" value="Cancel">
 	</p>
 </form>
 <form class="hidden dialog user-login">
 	<input type="hidden" name="action" value="user-login" />
 	<p>
-		<label for="username">Username:</label>
-		<input type="text" name="username" required />
+		<label for="email">Email:</label>
+		<input type="text" name="email" required />
 	</p>
 	<p>
-		<label for="userpassword">Password:</label>
-		<input type="password" name="userpassword" required />
+		<label for="password">Password:</label>
+		<input type="password" name="password" required />
+	</p>
+	<p>
+		<a class="register">Register instead</a><br />
 	</p>
 	<p>
 		<input type="submit" name="login" value="Log in">
+		<input type="reset" name="cancel" value="Cancel">
 	</p>
 </form>
 <form class="hidden dialog user-logout">

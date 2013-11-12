@@ -37,12 +37,22 @@ var promos = promos|| {};
 	}
 	
 	namespace.setupModals = function() {
-		$('input[type="submit"]').button(); // style inputs
+		$('input[type="submit"], input[type="reset"]').button(); // style inputs
 
 		// rules for dialogs
-		$('.dialog').dialog({modal: true, autoOpen: false, buttons: {}}); 
+		var $dialogs = $('.dialog'); 
+		$dialogs.dialog({modal: true, autoOpen: false, buttons: {}}); 
 		
-		// rules for registration form
+		$dialogs.find('.register').click(function() {
+			$('.dialog.user-signin').dialog('close');
+			$('.dialog.user-register').dialog('open');
+		});
+		$dialogs.find('.signin').click(function() {
+			$('.dialog.user-register').dialog('close');
+			$('.dialog.user-signin').dialog('open');
+		});
+		
+		// action for submit buttons
 		$('.dialog').find('input[type="submit"]').click(function() {
 			var $this = $(this), button = $this.attr('name'), formVals = $this.parents('form').serialize(); 
 			if(button == 'register') {

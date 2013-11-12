@@ -13,7 +13,7 @@ print_r($user);
 DROP TABLE IF EXISTS `test`.`shirts3423_users`;
 CREATE TABLE  `test`.`shirts3423_users` (
   `uid` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) NOT NULL DEFAULT '',
+  `name` varchar(255) NOT NULL DEFAULT '',
   `useremail` varchar(255) NOT NULL,
   `userpassword` varchar(255) NOT NULL,
   `emailconfirmed` int(10) unsigned DEFAULT NULL,
@@ -21,7 +21,7 @@ CREATE TABLE  `test`.`shirts3423_users` (
   `promoid` varchar(255) NOT NULL,
   `promocompleted` varchar(255) NOT NULL,
   `lastedit` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`uid`,`username`)
+  PRIMARY KEY (`uid`,`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='User storage for promos app';
 
  *
@@ -49,17 +49,17 @@ class application2234
 			}
 			elseif($_REQUEST['action'] == 'user-login') 
 			{ 
-				$username = empty($_REQUEST['username']) ? '' : $_REQUEST['username'];
+				$name = empty($_REQUEST['name']) ? '' : $_REQUEST['name'];
 				header('Content-type: application/json'); 
-				print $this->getUserJson($username);
+				print $this->getUserJson($name);
 				exit(); 
 			}
 			elseif($_REQUEST['action'] == 'user-register') 
 			{ 
 				header('Content-type: application/json'); 
 				$user = $this->saveUser(); 
-				$username = empty($user->username) ? '' : $user->username; 
-				print $this->getUserJson($username);
+				$name = empty($user->name) ? '' : $user->name; 
+				print $this->getUserJson($name);
 				exit();
 			}
 		}
@@ -86,14 +86,14 @@ class application2234
 		return empty($e) ? true : false; 
 	}
 	
-	public function checkUsername($usernameString = '') 
+	public function checkname($nameString = '') 
 	{
 		$e = array(); 
-		if (preg_match('/\s/', $usernameString)) {
-			$this->userMessages[] = $e[] = 'Username should not contain spaces.';
+		if (preg_match('/\s/', $nameString)) {
+			$this->userMessages[] = $e[] = 'name should not contain spaces.';
 		}
-		if (strlen($usernameString) < 6) {
-			$this->userMessages[] = $e[] = 'Username must be at least 6 characters'; 
+		if (strlen($nameString) < 6) {
+			$this->userMessages[] = $e[] = 'name must be at least 6 characters'; 
 		}
 		return empty($e) ? true : false; 
 	}
@@ -121,19 +121,21 @@ class application2234
 
 	public function saveUser() 
 	{
-		$query = sprintf('INSERT INTO `shirts3423_users` (username, useremail, userpassword) VALUES ("%s", "%s", "%s") ON DUPLICATE KEY UPDATE', 
-			addslashes($_REQUEST['username']), addslashes($_REQUEST['useremail']), addslashes($_REQUEST['userpassword'])
+		$query = sprintf('INSERT INTO `shirts3423_users` (username, useremail, userpassword) VALUES ("%s", "%s", "%s")
+			ON DUPLICATE KEY UPDATE username="%s", useremail="%s", userpassword="%s"', 
+			addslashes($_REQUEST['name']), addslashes($_REQUEST['email']), addslashes($_REQUEST['password']),
+			addslashes($_REQUEST['name']), addslashes($_REQUEST['email']), addslashes($_REQUEST['password'])
 			);
 		$result = $this->mysqli->query($query); 
 		if(!$result) {
 			return $this->mysqli->error();
 		}
-		return $this->getUser($_REQUEST['username']);
+		return $this->getUser($_REQUEST['name']);
 	}
 
 	public function getUser($userId = null) 
 	{
-		$_REQUEST['username'];
+		$_REQUEST['name'];
 		$query = sprintf('SELECT * FROM `shirts3423_users` WHERE username="%s" AND "%s"!=""', $userId, $userId); 
 		$result = $this->mysqli->query($query);
 		return $result->fetch_object();
