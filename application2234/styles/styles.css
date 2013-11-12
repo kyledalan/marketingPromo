@@ -1,0 +1,19 @@
+body, html {
+}
+
+.hidden {
+	display: none; 
+	}
+
+label {
+	display:inline-block;
+	width:115px;
+	text-align:right;
+	padding-right:2px;
+}
+
+input[type="submit"] {
+	margin-left:122px;
+}
+
+div.user-login { width: 350px; margin: 20px 0; }
